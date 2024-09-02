@@ -132,7 +132,7 @@ def setup_retriever():
         es_api_key=os.getenv("ELASTIC_API_KEY")
     )
 
-    llm = ChatOpenAI(temperature=0.7, model_name="gpt-4o-mini",frequency_penalty=1.0)
+    llm = ChatOpenAI(temperature=0.7, model_name="gpt-4o",frequency_penalty=1.0)
     query_constructor = get_query_constructor_prompt(
         document_content_description,
         metadata_field_info,
