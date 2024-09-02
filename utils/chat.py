@@ -37,7 +37,7 @@ def init_components():
         embedding_node_property="embedding"
     )
     solar = ChatUpstage()
-    llm = ChatOpenAI(temperature=0, model_name="gpt-4o")
+    llm = ChatOpenAI(temperature=0, model_name="gpt-4o-mini")
     graph = Neo4jGraph()
     graph.query(
         "CREATE FULLTEXT INDEX entity IF NOT EXISTS FOR (e:__Entity__) ON EACH [e.id]")

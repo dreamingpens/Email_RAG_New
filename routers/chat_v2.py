@@ -132,7 +132,7 @@ def setup_retriever():
         es_api_key=os.getenv("ELASTIC_API_KEY")
     )
 
-    llm = ChatOpenAI(temperature=0.7, model_name="gpt-4o",frequency_penalty=1.0)
+    llm = ChatOpenAI(temperature=0.7, model_name="gpt-4o-mini",frequency_penalty=1.0)
     query_constructor = get_query_constructor_prompt(
         document_content_description,
         metadata_field_info,
@@ -170,7 +170,7 @@ def get_query_examples():
     ]
 
 def setup_chat_chain(retriever):
-    llm = ChatOpenAI(temperature=0.7, model_name="gpt-4o", frequency_penalty=1.0)
+    llm = ChatOpenAI(temperature=0.7, model_name="gpt-4o-mini", frequency_penalty=1.0)
     rag_prompt = ChatPromptTemplate.from_messages([
         ("system", "You are an assistant for KAIST academic email question-answering tasks. My name is 황태호. My email address is doubleyyh@kaist.ac.kr. Today is 08.07. 7PM. Use the following pieces of retrieved email content to answer the question considering the history of the conversation. If you don't know the answer, just say that you don't know. \n---\nCONTEXT:\n{context}"),
         MessagesPlaceholder(variable_name="history"),
