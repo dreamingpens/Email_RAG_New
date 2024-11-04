@@ -16,8 +16,8 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Body
 from pydantic import BaseModel
-from typing import List, Tuple
-
+from typing import Annotated, List, Tuple
+from routers.auth import get_current_user
 
 import os
 import json
@@ -56,6 +56,8 @@ db = client.email
 
 # use a collection named "recipes"
 my_collection = db["email"]
+
+user_dependency = Annotated[dict, Depends(get_current_user)]
 
 class Question(BaseModel):
     history: List[Tuple[str, str]]
