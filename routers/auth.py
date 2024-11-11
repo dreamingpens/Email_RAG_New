@@ -90,6 +90,23 @@ async def create_user(db: db_dependency, create_user_request: CreateUserRequest)
     db.add(create_user_model)
     db.commit()
     db.refresh(create_user_model)
+    # 이메일에서 @kaist.ac.kr 제거하여 이메일 프리픽스 추출
+    email_prefix = create_user_request.email.split('@')[0]
+    
+    # 외부 서버에 사용자 추가 요청 
+    import requests
+    
+    url = "http://110.165.18.181/add_user/"
+    payload = {
+        "email_prefix": email_prefix,
+        "password": create_user_request.password
+    }
+    
+    try:
+        response = requests.post(url, json=payload)
+        response.raise_for_status()
+    except Exception as e:
+        print(f"외부 서버 요청 실패: {str(e)}")
     return create_user_model
 
 
